@@ -12,7 +12,7 @@ def create_app() -> FastAPI:
 
     # Register routers 
     app.include_router(root.router)
-    app.include_router(tasks.router, prefix='/tasks', tags=["Users"])
+    app.include_router(tasks.router, prefix='/tasks', tags=["Tasks"])
 
     return app
 
