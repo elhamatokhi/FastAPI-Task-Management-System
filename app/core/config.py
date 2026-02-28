@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     APP_NAME: str = "Task Management API"
     VERSION: str = "1.0.0"
     TASKS_FILE: str = "tasks.txt"
-    BACKUP_FILE: str = "tasks_backup.txt"
+    BACKUP_DIR: str = "backups"
 
     # CORS
     BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:3000"]
