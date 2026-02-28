@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from app.core.file_handler import load_tasks, save_tasks, get_next_id
+from app.services.file_handler import load_tasks, save_tasks, get_next_id
 
 def get_all_tasks(completed: bool | None = None):
     """ Retrieve all tasks with optional filtering"""

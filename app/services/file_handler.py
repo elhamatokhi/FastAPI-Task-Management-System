@@ -10,13 +10,15 @@ def load_tasks():
     Load tasks from JSON Lines file.
     Returns list of dictionaries.
     """
-    tasks_path = Path(settings.TASKS_FILE)
-    if not os.path.exists(settings.TASKS_FILE):
+    tasks_path = settings.TASKS_FILE
+
+    if not tasks_path.exists():
         return []
-    
+
     try:
         with tasks_path.open("r", encoding="utf-8") as file:
             return json.load(file)
+        
     except json.JSONDecodeError:
         # File exists but is corrupted or empty
         return []
@@ -30,14 +32,13 @@ def save_tasks(tasks: list):
     Creates timestamped backup before overwrite.
     Uses atomic write to prevent data corruption.
     """
-    tasks_path = Path(settings.TASKS_FILE)
-    backup_dir = Path(settings.BACKUP_DIR)
-
+    tasks_path = settings.TASKS_FILE
+    backup_dir = settings.BACKUP_DIR
     backup_dir.mkdir(parents=True, exist_ok=True)
 
     # Create backup
     if tasks_path.exists():
-        timestamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%d_%H%M%S")
+        timestamp = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
         backup_path = backup_dir / f"tasks_backup_{timestamp}.json"
 
         with tasks_path.open("r", encoding="utf-8") as original, \
